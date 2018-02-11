@@ -34,18 +34,20 @@ class ScrapeMp
     # )
   end
   def scrape_mp(mp)
-    if mp["deprivation"] == "20.10.2020"
+    if mp["endDate"] == "20.10.2020"
       date_end = nil
     else
-      date_end = Date.parse(mp["deprivation"],'%d.%m.%Y')
+      date_end = Date.parse(mp["endDate"],'%d.%m.%Y')
     end
 
     people = People.first(
+        deputy_id: mp["id"],
         first_name: mp["firstName"],
         middle_name: mp["fathersName"],
         last_name: mp["lastName"],
         full_name: mp["lastName"] + " " +  mp["firstName"] + " " + mp["fathersName"],
         end_date: date_end,
+        start_date: mp["startDate"],
         okrug: nil,
         photo_url: mp["photoLink"],
         faction: mp["faction"]
@@ -59,9 +61,11 @@ class ScrapeMp
            middle_name: mp["fathersName"],
            last_name: mp["lastName"],
            full_name: mp["lastName"] + " " +  mp["firstName"] + " " + mp["fathersName"],
+           deputy_id: mp["id"],
            okrug: nil,
            photo_url: mp["photoLink"],
            faction: mp["faction"],
+           start_date: mp["startDate"],
            end_date:  date_end,
            created_at: Time.now,
            updated_at: Time.now
