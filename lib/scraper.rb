@@ -46,7 +46,6 @@ class ScrapeMp
         middle_name: mp["fathersName"],
         last_name: mp["lastName"],
         full_name: mp["lastName"] + " " +  mp["firstName"] + " " + mp["fathersName"],
-        end_date: date_end,
         start_date: mp["startDate"],
         okrug: nil,
         photo_url: mp["photoLink"],
