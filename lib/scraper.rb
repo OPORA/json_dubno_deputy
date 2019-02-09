@@ -70,7 +70,15 @@ class ScrapeMp
       people.update(end_date:  date_end,  updated_at: Time.now)
      else
         People.create(
-
+            deputy_id: deputy_id,
+            first_name: first_name,
+            middle_name: middle_name,
+            last_name: last_name,
+            full_name: last_name + " " + first_name  + " " +  middle_name,
+            start_date: "2015-10-20",
+            okrug: nil,
+            photo_url: "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif",
+            faction: faction
         )
      end
   end
