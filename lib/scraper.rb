@@ -8,17 +8,20 @@ require 'csv'
 class ScrapeMp
   def parser
     #DataMapper.auto_upgrade!
-     csv_file = open('https://ckan.dubno-adm.rv.ua/dataset/7eb66fa9-33de-4d73-b5a7-df6846823f98/resource/49c25673-4422-4bd6-92e4-b458a0e40818/download/depytatu_2017_0_0.csv')
+    #
+     csv_file = open('https://ckan.dubno-adm.rv.ua/dataset/7eb66fa9-33de-4d73-b5a7-df6846823f98/resource/49c25673-4422-4bd6-92e4-b458a0e40818/download/depytatu_2018.csv')
      csvmp = CSV.read(csv_file)
      csvmp.shift
      csvmp.each do |mp|
+       p mp
        scrape_mp(mp)
      end
-    #mps_hash = JSON.parse(file)
-    #mps_hash.map do |mp|
-      #scrape_mp(mp)
-    #end
+
     create_mer()
+     create_mps_1
+     create_mps_2
+     create_mps_3
+     create_mps_4
   end
   def create_mer
     #TODO create mer Sadovoy
@@ -36,6 +39,74 @@ class ScrapeMp
          end_date:  nil,
          created_at: "9999-12-31",
          updated_at: "9999-12-31"
+    )
+  end
+  def create_mps_1
+    names = %w{Іванова Марія Петрівна}
+    People.first_or_create(
+        first_name: names[1],
+        middle_name: names[2],
+        last_name: names[0],
+        full_name: names.join(' '),
+        deputy_id: 35,
+        okrug: 22,
+        photo_url: "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif",
+        faction: "Українське об'єднання патріотів - УКРОП",
+        start_date: "2015-10-20",
+        end_date:  nil,
+        created_at: "9999-12-31",
+        updated_at: "9999-12-31"
+    )
+  end
+  def create_mps_2
+    names = %w{Момотюк Юрій Володимирович}
+    People.first_or_create(
+        first_name: names[1],
+        middle_name: names[2],
+        last_name: names[0],
+        full_name: names.join(' '),
+        deputy_id: 36,
+        okrug: nil,
+        photo_url: "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif",
+        faction: "Українське об'єднання патріотів - УКРОП",
+        start_date: "2015-10-20",
+        end_date:  nil,
+        created_at: "9999-12-31",
+        updated_at: "9999-12-31"
+    )
+  end
+  def create_mps_3
+    names = %w{Опалак Вадим Олександрович}
+    People.first_or_create(
+        first_name: names[1],
+        middle_name: names[2],
+        last_name: names[0],
+        full_name: names.join(' '),
+        deputy_id: 37,
+        okrug: 21,
+        photo_url: "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif",
+        faction: "Українське об'єднання патріотів - УКРОП",
+        start_date: "2015-10-20",
+        end_date:  nil,
+        created_at: "9999-12-31",
+        updated_at: "9999-12-31"
+    )
+  end
+  def create_mps_4
+    names = %w{Тимрук Віктор Станіславович}
+    People.first_or_create(
+        first_name: names[1],
+        middle_name: names[2],
+        last_name: names[0],
+        full_name: names.join(' '),
+        deputy_id: 38,
+        okrug: 29,
+        photo_url: "https://upload.wikimedia.org/wikipedia/en/e/ee/Unknown-person.gif",
+        faction: "Українське об'єднання патріотів - УКРОП",
+        start_date: "2015-10-20",
+        end_date:  nil,
+        created_at: "9999-12-31",
+        updated_at: "9999-12-31"
     )
   end
   def scrape_mp(mp)
@@ -67,7 +138,7 @@ class ScrapeMp
      )
 
      unless people.nil?
-      people.update(end_date:  date_end,  updated_at: Time.now)
+      people.update(end_date:  nil,  updated_at: Time.now)
      else
         People.create(
             deputy_id: deputy_id,
