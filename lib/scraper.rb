@@ -13,6 +13,10 @@ class ScrapeMp
      csvmp = CSV.read(csv_file)
      csvmp.shift
      csvmp.each do |mp|
+       next if mp[1].strip == 'Іванова Марія Петрівна'
+       next if mp[1].strip == 'Момотюк Юрій Володимирович'
+       next if mp[1].strip == 'Опалак Вадим Олександрович'
+       next if mp[1].strip == 'Тимрук Віктор Станіславович'
        p mp
        scrape_mp(mp)
      end
